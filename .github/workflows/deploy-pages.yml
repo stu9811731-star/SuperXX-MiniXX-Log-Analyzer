@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "MiniXX_Log_Analyzer_PWA_V4_1.zip"
+      - "MiniXX_Log_Analyzer_PWA_V4_2.zip"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
@@ -34,7 +34,7 @@ jobs:
         run: |
           rm -rf _site
           mkdir _site
-          unzip -o MiniXX_Log_Analyzer_PWA_V4_1.zip -d _site
+          unzip -o MiniXX_Log_Analyzer_PWA_V4_2.zip -d _site
 
           echo "Extracted files:"
           find _site -maxdepth 3 -type f
