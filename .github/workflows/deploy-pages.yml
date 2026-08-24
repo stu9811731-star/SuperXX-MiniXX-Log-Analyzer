@@ -1,3 +1,73 @@
+name: Deploy XXFueL V4.3
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "MiniXX_Log_Analyzer_PWA_V4_3.zip"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract PWA
+        run: |
+          rm -rf _site
+          mkdir _site
+          unzip -o MiniXX_Log_Analyzer_PWA_V4_3.zip -d _site
+
+          echo "Extracted files:"
+          find _site -maxdepth 3 -type f
+
+          INDEX="$(find _site -name index.html -type f | head -1)"
+
+          if [ -z "$INDEX" ]; then
+            echo "ERROR: index.html not found"
+            exit 1
+          fi
+
+          APP_DIR="$(dirname "$INDEX")"
+
+          if [ "$APP_DIR" != "_site" ]; then
+            mkdir _deploy
+            cp -a "$APP_DIR"/. _deploy/
+            rm -rf _site
+            mv _deploy _site
+          fi
+
+          touch _site/.nojekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 name: Deploy MiniXX Log Analyzer
 
 on:
