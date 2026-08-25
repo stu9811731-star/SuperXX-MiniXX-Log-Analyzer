@@ -1,11 +1,11 @@
-name: Deploy XXFueL V4.3
+name: Deploy XXFueL V4.4
 
 on:
   push:
     branches:
       - main
     paths:
-      - "MiniXX_Log_Analyzer_PWA_V4_3.zip"
+      - "MiniXX_Log_Analyzer_PWA_V4_4.zip"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
@@ -34,7 +34,7 @@ jobs:
         run: |
           rm -rf _site
           mkdir _site
-          unzip -o MiniXX_Log_Analyzer_PWA_V4_3.zip -d _site
+          unzip -o MiniXX_Log_Analyzer_PWA_V4_4.zip -d _site
 
           echo "Extracted files:"
           find _site -maxdepth 3 -type f
