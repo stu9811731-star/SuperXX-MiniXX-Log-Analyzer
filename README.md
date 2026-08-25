@@ -1,5 +1,5 @@
-# XXFueL V4.3.0
+# XXFueL V4.4.0
 
-Browser-based MiniXX fuel correction, before-after Log comparison, actual ignition-angle analysis, and local fuel-map screenshot recognition.
+Browser-based MiniXX fuel correction, before-after Log comparison, ignition-angle and manifold-pressure analysis, and local fuel-map screenshot recognition.
 
-V4.3.0 adds Apple and Android Log detection, Fuel_CL mode mismatch protection, cadence-aware effective sample counts, weighted dispersion and segment-consistency checks, conservative ±3% and 11% safety gates, 0.8-step fuel suggestions, and improved before/after classifications. Logs and screenshots remain on the user's device.
+V4.4.0 adds a clearly labeled ignition/pressure result page that can switch between actual spark advance and intake-manifold absolute pressure for the same TPS/RPM cells. It retains Apple and Android Log detection, Fuel_CL mismatch protection, conservative safety gates, 0.8-step fuel suggestions, screenshot fuel-map recognition, and before/after comparison. Logs and screenshots remain on the user's device.
