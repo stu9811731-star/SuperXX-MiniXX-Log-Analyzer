@@ -1,6 +1,8 @@
-# XXFueL V4.4.2
+# XXFueL V4.4.3
 
 Browser-based MiniXX fuel correction, before-after Log comparison, ignition-angle and manifold-pressure analysis, and local fuel-map screenshot recognition.
+
+V4.4.3 adds an original MiniXX learning center with eight practical articles, an About page, clearer site navigation, page-specific descriptions and canonical URLs, plus `robots.txt` and `sitemap.xml`. The analyzer calculations and conservative safety gates remain the validated V4.4.2 behavior.
 
 V4.4.2 adds a base-fuel percentage control. The result view can now calculate the final fuel value with `global fuel × base fuel ÷ 100`, while keeping the default at 100% when the control is not changed. The slider and numeric input stay synchronized and update the displayed result immediately.
 
