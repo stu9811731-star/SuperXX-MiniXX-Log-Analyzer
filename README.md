@@ -1,6 +1,8 @@
-# XXFueL V4.4.3
+# XXFueL V4.4.4
 
 Browser-based MiniXX fuel correction, before-after Log comparison, ignition-angle and manifold-pressure analysis, and local fuel-map screenshot recognition.
+
+V4.4.4 gives every public page the same XXFueL header structure while retaining a distinct page title and purpose line. Browser-tab titles now consistently use the XXFueL brand, and an automated test prevents future pages from drifting away from the shared header.
 
 V4.4.3 adds an original MiniXX learning center with eight practical articles, an About page, clearer site navigation, page-specific descriptions and canonical URLs, plus `robots.txt` and `sitemap.xml`. The analyzer calculations and conservative safety gates remain the validated V4.4.2 behavior.
 
