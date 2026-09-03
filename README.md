@@ -1,6 +1,8 @@
-# XXFueL V4.4.4
+# XXFueL V4.5.0
 
 Browser-based MiniXX fuel correction, before-after Log comparison, ignition-angle and manifold-pressure analysis, and local fuel-map screenshot recognition.
+
+V4.5.0 adds a browser-local static compression-ratio calculator. It calculates per-cylinder and total displacement, clearance volume, gasket and deck contributions, and compression ratio from bore, stroke, chamber, piston, gasket, deck-clearance, and cylinder-count inputs. The page documents positive/negative piston and deck conventions, validates impossible values, and is linked from every public page.
 
 V4.4.4 gives every public page the same XXFueL header structure while retaining a distinct page title and purpose line. Browser-tab titles now consistently use the XXFueL brand, and an automated test prevents future pages from drifting away from the shared header.
 
