@@ -1,15 +1,63 @@
-# XXFueL V4.5.0
+# XXFueL V4.6.0
 
-Browser-based MiniXX fuel correction, before-after Log comparison, ignition-angle and manifold-pressure analysis, and local fuel-map screenshot recognition.
+MiniXX 的瀏覽器端 Apple／Android Log 分析器。Log、ZIP、油量表截圖與 OCR 都只在目前裝置處理，不上傳伺服器。
 
-V4.5.0 adds a browser-local static compression-ratio calculator. It calculates per-cylinder and total displacement, clearance volume, gasket and deck contributions, and compression ratio from bore, stroke, chamber, piston, gasket, deck-clearance, and cylinder-count inputs. The page documents positive/negative piston and deck conventions, validates impossible values, and is linked from every public page.
+## V4.6.0 T_Eng 溫度補償
 
-V4.4.4 gives every public page the same XXFueL header structure while retaining a distinct page title and purpose line. Browser-tab titles now consistently use the XXFueL brand, and an automated test prevents future pages from drifting away from the shared header.
+- 新增 `temperature.html` 獨立頁面，從上方「油溫補償」進入並自行匯入 Log，依 `T_Eng` 建立 0、16、32、48、64、80、96、112、128°C 溫度格表；入口與「分析工具」、「前後比較」並列。
+- 溫度補償頁面提供獨立分析設定、結果與 CSV 匯出；分析工具首頁保留燃油修正、點火角與進氣壓力兩個結果分頁。
+- 設定只保留 Fuel_CL 與基準油溫（預設 96°C），其餘使用分析預設值。只比較基準格與其他溫度格重疊的相同 TPS／RPM 格位。
+- Log 依每格起始溫度分組：0≤T<16 歸 0°C、16≤T<32 歸 16°C，依此類推，128≤T<144 歸 128°C；低於 0°C 或達 144°C 排除。結果與 CSV 都標示使用者選取的基準。
+- 至少需要 3 個重疊格位、足夠有效樣本與穩態時間，且離散度須通過門檻；Low 不顯示修改量。
+- 建議保留 ±3% 安全帶，依 MiniXX 0.8% 步進取整，單次受原有最大建議限制；極端或分散資料標記為需驗證。
+- `T_Eng` 明確標示為 ECU Log 的引擎溫度，不宣稱等同獨立機油溫度感知器。
 
-V4.4.3 adds an original MiniXX learning center with eight practical articles, an About page, clearer site navigation, page-specific descriptions and canonical URLs, plus `robots.txt` and `sitemap.xml`. The analyzer calculations and conservative safety gates remain the validated V4.4.2 behavior.
+## V4.5.0 壓縮比計算
 
-V4.4.2 adds a base-fuel percentage control. The result view can now calculate the final fuel value with `global fuel × base fuel ÷ 100`, while keeping the default at 100% when the control is not changed. The slider and numeric input stay synchronized and update the displayed result immediately.
+- 新增獨立的靜態壓縮比計算頁，並整合到所有公開頁面的導覽。
+- 輸入缸徑、行程、汽缸數、燃燒室、活塞頂、汽缸床墊片與上止點間隙，即時計算壓縮比、排氣量與餘隙容積。
+- 活塞凹頂／凸頂與活塞低於／高出缸面的正負方向都有明確提示，無效尺寸與非正餘隙會停止計算。
+- 計算完全在瀏覽器內完成，不會傳送輸入資料。
 
-The release retains the improved local fuel-map screenshot recognition from V4.4.1. Low-resolution screenshots are enlarged before OCR; values with a dropped decimal point such as `875` are restored to `87.5`, and a missing leading digit such as `17.1` can be restored to `117.1` only when the surrounding table values support that repair. Automatically repaired cells are shown in yellow for manual confirmation.
+## V4.4.4 抬頭統一
 
-The release retains Apple and Android Log detection, Fuel_CL mismatch protection, conservative safety gates, 0.8-step fuel suggestions, before/after comparison, and the ignition/manifold-pressure result page. Logs and screenshots remain on the user's device.
+- 所有公開頁面統一使用 `XXFueL` 品牌抬頭，保留各頁自己的名稱與用途說明。
+- 瀏覽器分頁標題統一為 `頁面名稱｜XXFueL`；首頁為 `XXFueL｜MiniXX Log Analyzer`。
+- 新增自動測試，避免後續頁面再次出現不同品牌抬頭。
+
+## V4.4.3 內容更新
+
+- 新增教學文章中心與 8 篇 MiniXX 原創實作文章。
+- 新增關於本站、製作目的、限制、獨立性與聯絡方式。
+- 所有主要頁面加入專屬描述、canonical URL 與更完整的內部導覽。
+- 新增 `robots.txt` 與 `sitemap.xml`，方便搜尋引擎發現公開內容。
+- 分析器沿用 V4.4.2 的計算與安全門檻；本次更新著重於原創教學、網站資訊架構與搜尋引擎可讀性。
+
+## V4.4.2 重點
+
+- 新增 50～150% 的基礎油量滑桿與精確數字輸入；100% 不改變整體供油，結果依「最終供油＝全域燃油 × 基礎油量 ÷ 100」顯示修改前後數值。
+- 支援 `.loga`、`.log`、`.txt`、`.csv` 與安全受限的 ZIP；最多 20 個檔案、單檔 25 MB、解析後合計 500,000 列。
+- 依檔案標頭與欄位結構辨識 Android MX App 或通用／Apple 格式；手動指定與內容矛盾時停止分析。
+- MiniXX Fuel Map `20×17`、Ignition Map `20×9`；RPM 800～16000，每格 800。
+- Fuel_CL 保留「不納入／納入」兩項。納入時依「正值代表 ECU 加油、單位百分比」計算；Log 的非零狀態與選項矛盾時停止分析。
+- 每筆 AFR 先換算 `(Actual / Target - 1) × 100%`；納入 Fuel_CL 時以乘法合併。
+- 偏差在 ±3% 內保留原值；達 11% 標記 `Verify`，不直接產生修改建議。
+- 介於 3% 與 11% 時，先計算拉回同方向 3% 安全邊界所需的幅度，再依 MiniXX 最小 0.8 油量步進取整。
+- 保留暖機、進格等待、等待後有效秒數、加速補油、斷油、WBO2、樣本門檻、多 Log 一致性與 Fuel_CL 安全限制。
+- 可信度加入取樣頻率與溫度校正後的有效 N、weighted MAD 與片段方向一致性；Low 不顯示建議。
+- 前後比較要求兩側都有足夠可信度，並辨識「改善／近似／惡化／可能修過頭／可信度不足／單側資料」。
+- 沒有油量表截圖時顯示 AFR 差異；有確認過的油量表數值時，顯示全域燃油修改前後，以及套用基礎油量後的最終供油。
+- 點火頁可切換 `SA` 實際點火角或 `Cyl1_Eng_AP`／`MAP` 進氣歧管絕對壓力；兩者依相同 TPS／RPM 格位彙整，不提供點火修改建議。
+
+## 安全與隱私
+
+- ZIP 拒絕加密、異常結構、過多項目及超過壓縮／解壓上限的資料。
+- Service Worker 只處理本站同網域資源。
+- Log 可能包含 ECU 或裝置識別資訊；工具只在瀏覽器記憶體內解析。
+- 本工具只提供分析與保守建議，不會寫入 ECU，也不能取代機械檢查或專業調校。
+
+## 測試
+
+```bash
+npm test
+```
