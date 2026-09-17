@@ -1,6 +1,13 @@
-# XXFueL V4.6.0
+# XXFueL V4.7.0
 
-MiniXX 的瀏覽器端 Apple／Android Log 分析器。Log、ZIP、油量表截圖與 OCR 都只在目前裝置處理，不上傳伺服器。
+aRacer MiniXX 的瀏覽器端 Apple／Android Log 分析工具。Log、ZIP、油量表截圖與 OCR 都只在目前裝置處理，不上傳伺服器。
+
+## V4.7.0 中英文切換
+
+- 所有公開頁面新增 `EN／繁中` 一鍵切換，語言偏好只儲存在目前瀏覽器。
+- 分析狀態、動態結果、頁面標題與搜尋說明同步切換。
+- 翻譯資料隨網站本機載入，不會將 Log、截圖、ECU 數值或分析結果傳給翻譯服務。
+- 首頁明確標示為 aRacer MiniXX 使用的 Log 分析工具。
 
 ## V4.6.0 T_Eng 溫度補償
 
